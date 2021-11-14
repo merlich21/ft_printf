@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/09 18:20:29 by merlich           #+#    #+#              #
-#    Updated: 2021/11/10 20:58:38 by merlich          ###   ########.fr        #
+#    Updated: 2021/11/14 17:12:20 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,19 +40,19 @@ BONUS 		= 	bonus
 
 CLANG 		= 	clang
 
-CFLAGS 		= 	-Wall -Wextra -Werror
+CFLAGS 		= 	-Wall -Wextra -Werror -MD
 
 RM 			= 	rm -f
 
-.c.o:
-			${CLANG} ${CFLAGS} -c $< -o ${<:.c=.o} -MD
+%.o:		%.c
+			${CLANG} ${CFLAGS} -c $< -o $@
 
 all:		${NAME}
 
 $(NAME): 	${OBJS}
 			ar rcs ${NAME} $?
 
-include $(wildcard $(D_FILES))
+-include $(D_FILES)
 
 $(BONUS):	
 			@make OBJS="${OBJS_BONUS}" all

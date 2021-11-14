@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 11:24:59 by merlich           #+#    #+#             */
-/*   Updated: 2021/11/13 22:27:02 by merlich          ###   ########.fr       */
+/*   Updated: 2021/11/14 16:05:47 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	ft_search(char *s, char c)
 {
@@ -42,7 +42,7 @@ static int	ft_convert(va_list ap, char *pos, int index, int fd)
 	else if (conversion_specifier == 'p')
 	{
 		ft_putstr_fd("0x", fd);
-		return (2 + ft_putnbr_hex_fd(va_arg(ap, unsigned long long int), 0, fd));
+		return (2 + ft_putnbr_h_fd(va_arg(ap, unsigned long long int), 0, fd));
 	}
 	else if (conversion_specifier == 'd')
 		return (ft_int_dec(va_arg(ap, int), fd));
@@ -51,9 +51,9 @@ static int	ft_convert(va_list ap, char *pos, int index, int fd)
 	else if (conversion_specifier == 'u')
 		return (ft_uint(va_arg(ap, unsigned int), fd));
 	else if (conversion_specifier == 'x')
-		return (ft_putnbr_hex_fd(va_arg(ap, unsigned int), 0, fd));
+		return (ft_putnbr_h_fd(va_arg(ap, unsigned int), 0, fd));
 	else if (conversion_specifier == 'X')
-		return (ft_putnbr_hex_fd(va_arg(ap, unsigned int), 1, fd));
+		return (ft_putnbr_h_fd(va_arg(ap, unsigned int), 1, fd));
 	else if (conversion_specifier == '%')
 		return (ft_char('%', fd));
 	return (-1);
@@ -74,7 +74,6 @@ int	ft_printf(const char *format, ...)
 	pos = (char *) format;
 	index = ft_search(pos, '%');
 	va_start(ap, format);
-	/* error handler */
 	while (index != -1)
 	{
 		write (1, pos, index);

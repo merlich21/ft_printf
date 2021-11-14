@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/10 11:44:29 by merlich           #+#    #+#              #
-#    Updated: 2021/11/13 19:11:49 by merlich          ###   ########.fr        #
+#    Updated: 2021/11/14 17:12:22 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,22 +34,22 @@ LIBFT_SRCS	=	libft/ft_isalpha.c libft/ft_isdigit.c \
 
 LIBFT_OBJS	=	${LIBFT_SRCS:.c=.o}
 
-HEADER	=	libftprintf.h
+HEADER	=	ft_printf.h
 
-SRCS	=	ft_printf.c characters.c numbers.c
+SRCS	=	ft_printf.c characters.c numbers.c ft_num_len.c
 
 OBJS	=	${SRCS:.c=.o}
 
-D_FILES	=	${patsubst %.c, %.d, ${SRCS}}
+D_FILES	=	${OBJS:.o=.d}
 
 CLANG	=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -MD
 
 RM		=	rm -f
 
 %.o:		%.c
-			${CLANG} ${CFLAGS} -c $< -o $@ -MD
+			${CLANG} ${CFLAGS} -c $< -o $@
 
 all:		${NAME}
 
@@ -59,9 +59,9 @@ $(LIBFT):	${LIBFT_SRCS} ${LIBFT_OBJS}
 $(NAME):	${OBJS} ${LIBFT} ${LIBFT_OBJS}
 			ar rcs ${NAME} $?
 
-include $(wildcard ${D_FILES})
+-include ${D_FILES}
 
-clean:	
+clean:
 			make -C libft clean
 			${RM} ${OBJS} ${D_FILES}
 

@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
+/*   ft_num_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 14:36:52 by merlich           #+#    #+#             */
-/*   Updated: 2021/11/14 16:05:48 by merlich          ###   ########.fr       */
+/*   Created: 2021/11/14 14:51:32 by merlich           #+#    #+#             */
+/*   Updated: 2021/11/14 14:54:14 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-
-int	ft_char(char c, int fd)
+int	ft_num_len(long long num, int base)
 {
-	ft_putchar_fd(c, fd);
-	return (1);
+	int	len;
+
+	len = 0;
+	if (num < 0)
+		len = 2;
+	else
+		len = 1;
+	while (num / base != 0)
+	{
+		num = num / base;
+		len++;
+	}
+	return (len);
 }
 
-int	ft_string(char *str, int fd)
+int	ft_unsigned_num_len(unsigned long long num, int base)
 {
-	if (NULL == str)
+	int	len;
+
+	len = 1;
+	while (num / base != 0)
 	{
-		str = "(null)";
+		num = num / base;
+		len++;
 	}
-	ft_putstr_fd(str, fd);
-	return (ft_strlen(str));
+	return (len);
 }
